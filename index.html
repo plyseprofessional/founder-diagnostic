@@ -841,10 +841,16 @@
 <!-- SUBMIT -->
 <div class="submit-zone">
   <button class="submit-btn" onclick="generateResults()">
-    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 17l6-5-6-5"/></svg>
+    <svg width="18" height="18" fill="none" stroke="currentColor"
+         stroke-width="2" viewBox="0 0 24 24">
+      <path d="M9 17l6-5-6-5"/>
+    </svg>
     Generate Diagnostic Report
   </button>
-  <div class="submit-note">Your responses are processed locally. Nothing is sent externally.</div>
+  <div class="submit-note">
+    Responses are scored locally and saved securely to Plyse records.
+  </div>
+  <div id="submitStatus" style="margin-top:10px;font-size:13px;font-weight:500;"></div>
 </div>
 
 <!-- RESULTS -->
@@ -955,6 +961,9 @@ function scoreDim(dim) {
 }
 
 function generateResults() {
+    // ── YOUR APPS SCRIPT URL ──
+  const SHEET_URL = 'PASTE_YOUR_WEB_APP_URL_HERE';
+
   let totalRaw = 0, totalMax = 0, dimData = [];
   DIMS.forEach(d => {
     let raw = 0, max = 0;
@@ -971,12 +980,46 @@ function generateResults() {
 
   const overall = totalMax > 0 ? Math.round((totalRaw / totalMax) * 100) : 0;
 
-  // Score display
+  // ── BUILD PAYLOAD ──
+  const payload = {
+    bizName:      document.getElementById('bizName').value      || 'Not provided',
+    founderName:  document.getElementById('founderName').value  || 'Not provided',
+    diagDate:     document.getElementById('diagDate').value     || 'Not provided',
+    scoreA:       (dimData.find(d => d.key === 'A')?.pct ?? '') + '%',
+    scoreB:       (dimData.find(d => d.key === 'B')?.pct ?? '') + '%',
+    scoreC:       (dimData.find(d => d.key === 'C')?.pct ?? '') + '%',
+    scoreD:       (dimData.find(d => d.key === 'D')?.pct ?? '') + '%',
+    scoreE:       (dimData.find(d => d.key === 'E')?.pct ?? '') + '%',
+    scoreF:       (dimData.find(d => d.key === 'F')?.pct ?? '') + '%',
+    overallScore: overall + '%',
+    founderNotes: (notes['A4'] || '') + ' | ' + (notes['F4'] || '')
+  };
+
+  // ── SEND TO SHEET ──
+  fetch(SHEET_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(() => {
+    document.getElementById('submitStatus').textContent =
+      '✓ Responses saved to Plyse records.';
+    document.getElementById('submitStatus').style.color = '#2e7d4f';
+  })
+  .catch(() => {
+    document.getElementById('submitStatus').textContent =
+      'Could not connect — check your internet and try again.';
+    document.getElementById('submitStatus').style.color = '#BF202F';
+  });
+
+  // ── REST OF YOUR EXISTING generateResults() CODE BELOW ──
   document.getElementById('totalScore').textContent = overall + '%';
   let band, bandColor;
-  if (overall >= 70) { band = 'Good foundation'; bandColor = '#2e7d4f'; }
-  else if (overall >= 45) { band = 'Needs structure'; bandColor = '#b06000'; }
-  else { band = 'Critical intervention'; bandColor = '#BF202F'; }
+  if (overall >= 70)      { band = 'Good foundation';      bandColor = '#2e7d4f'; }
+  else if (overall >= 45) { band = 'Needs structure';      bandColor = '#b06000'; }
+  else                    { band = 'Critical intervention'; bandColor = '#BF202F'; }
+
   const sb = document.getElementById('scoreBand');
   sb.textContent = band;
   sb.style.background = bandColor + '22';
@@ -987,30 +1030,32 @@ function generateResults() {
   document.getElementById('results-intro').textContent =
     `Scored profile for ${founder} at ${biz}. Review each dimension and the priority interventions below.`;
 
-  // Dimension rows
   const dimContainer = document.getElementById('dimensionRows');
   dimContainer.innerHTML = '';
   dimData.forEach(d => {
     let flag, flagClass, barColor;
-    if (d.pct >= 65) { flag = 'Healthy'; flagClass = 'flag-ok'; barColor = '#2e7d4f'; }
-    else if (d.pct >= 38) { flag = 'Watch'; flagClass = 'flag-watch'; barColor = '#d4780a'; }
-    else { flag = 'Critical'; flagClass = 'flag-critical'; barColor = '#BF202F'; }
+    if (d.pct >= 65)      { flag = 'Healthy';  flagClass = 'flag-ok';       barColor = '#2e7d4f'; }
+    else if (d.pct >= 38) { flag = 'Watch';    flagClass = 'flag-watch';    barColor = '#d4780a'; }
+    else                  { flag = 'Critical'; flagClass = 'flag-critical'; barColor = '#BF202F'; }
 
     dimContainer.innerHTML += `
       <div class="dimension-row">
         <div class="dim-name">${d.name}</div>
-        <div class="dim-bar-wrap"><div class="dim-bar-fill" style="background:${barColor};width:0%" data-target="${d.pct}"></div></div>
+        <div class="dim-bar-wrap">
+          <div class="dim-bar-fill" style="background:${barColor};width:0%"
+               data-target="${d.pct}"></div>
+        </div>
         <div class="dim-score-num" style="color:${barColor}">${d.pct}%</div>
         <div class="dim-flag ${flagClass}">${flag}</div>
       </div>`;
   });
+
   setTimeout(() => {
     document.querySelectorAll('.dim-bar-fill').forEach(b => {
       b.style.width = b.dataset.target + '%';
     });
   }, 100);
 
-  // Recommendations
   const recsList = document.getElementById('recsList');
   recsList.innerHTML = '';
   let hasRec = false;
@@ -1018,25 +1063,35 @@ function generateResults() {
     const dim = dimData.find(d => d.key === r.dim);
     if (dim && dim.pct < r.threshold) {
       hasRec = true;
-      recsList.innerHTML += `<div class="rec-item"><div class="rec-phase">${r.phase}</div><div class="rec-text">${r.text}</div></div>`;
+      recsList.innerHTML += `
+        <div class="rec-item">
+          <div class="rec-phase">${r.phase}</div>
+          <div class="rec-text">${r.text}</div>
+        </div>`;
     }
   });
-  if (!hasRec) recsList.innerHTML = '<div class="rec-text">Strong across all dimensions. Focus on deepening systems and preparing for scale.</div>';
+  if (!hasRec)
+    recsList.innerHTML = '<div class="rec-text">Strong across all dimensions. Focus on deepening systems and preparing for scale.</div>';
 
-  // Notes
   const notesGrid = document.getElementById('notesGrid');
   notesGrid.innerHTML = '';
   const noteLabels = { A4: 'Last unnecessary decision', F4: 'Fears about letting go' };
   Object.entries(noteLabels).forEach(([q, label]) => {
     if (notes[q] && notes[q].trim()) {
-      notesGrid.innerHTML += `<div class="note-card"><label>${label}</label><p>${notes[q]}</p></div>`;
+      notesGrid.innerHTML += `
+        <div class="note-card">
+          <label>${label}</label>
+          <p>${notes[q]}</p>
+        </div>`;
     }
   });
-  if (!notesGrid.innerHTML) notesGrid.innerHTML = '<div class="note-card" style="grid-column:1/-1"><label>No notes captured</label><p>No open-ended responses were recorded in this session.</p></div>';
+  if (!notesGrid.innerHTML)
+    notesGrid.innerHTML = `
+      <div class="note-card" style="grid-column:1/-1">
+        <label>No notes captured</label>
+        <p>No open-ended responses were recorded in this session.</p>
+      </div>`;
 
   document.getElementById('results').style.display = 'block';
   document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
 }
-</script>
-</body>
-</html>
