@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FSS Phase 0 — Founder Diagnostic | Plyse Professional Services</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --red: #BF202F;
+    --red-light: #E3A291;
+    --red-pale: #f9eeec;
+    --grey: #636466;
+    --grey-light: #e8e8e9;
+    --grey-pale: #f5f5f5;
+    --ink: #1a1a1a;
+    --white: #ffffff;
+    --rule: #e0dcdb;
+    --score-low: #BF202F;
+    --score-mid: #d4780a;
+    --score-high: #2e7d4f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #faf8f7;
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    background: var(--red);
+    color: white;
+    padding: 60px 56px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    border: 80px solid rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 120px;
+    width: 200px; height: 200px;
+    border: 50px solid rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+  .cover-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 20px;
+  }
+  .cover-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 42px;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .cover-title em { font-style: italic; opacity: 0.75; }
+  .cover-sub {
+    font-size: 15px;
+    font-weight: 300;
+    opacity: 0.75;
+    margin-bottom: 36px;
+    max-width: 520px;
+    line-height: 1.6;
+  }
+  .cover-meta {
+    display: flex; gap: 32px; flex-wrap: wrap;
+  }
+  .cover-field label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .cover-field input {
+    background: rgba(255,255,255,0.12);
+    border: 0.5px solid rgba(255,255,255,0.25);
+    border-radius: 4px;
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 7px 12px;
+    width: 200px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .cover-field input::placeholder { opacity: 0.45; }
+  .cover-field input:focus { border-color: rgba(255,255,255,0.6); }
+
+  /* ── INTRO BAND ── */
+  .intro-band {
+    background: var(--ink);
+    color: white;
+    padding: 24px 56px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .intro-band p {
+    font-size: 13px;
+    line-height: 1.7;
+    opacity: 0.72;
+    max-width: 700px;
+  }
+  .intro-band strong { color: var(--red-light); font-weight: 500; }
+
+  /* ── SECTION ── */
+  .section {
+    padding: 40px 56px;
+    border-bottom: 1px solid var(--rule);
+    background: white;
+    margin-bottom: 2px;
+  }
+  .section:last-of-type { border-bottom: none; }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+  .section-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    color: var(--red-light);
+    line-height: 1;
+    min-width: 44px;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .section-desc {
+    font-size: 13px;
+    color: var(--grey);
+    line-height: 1.6;
+  }
+
+  /* ── QUESTIONS ── */
+  .question-block {
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--grey-light);
+  }
+  .question-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .q-label {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+  .q-label span {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    background: var(--red-pale);
+    padding: 2px 7px;
+    border-radius: 3px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  /* Scale */
+  .scale-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+  .scale-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--grey);
+    margin-top: 6px;
+  }
+  .scale-btn {
+    flex: 1;
+    height: 40px;
+    border: 0.5px solid var(--rule);
+    background: white;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--grey);
+    transition: all 0.15s;
+    border-right: none;
+    position: relative;
+  }
+  .scale-btn:first-child { border-radius: 4px 0 0 4px; }
+  .scale-btn:last-child { border-radius: 0 4px 4px 0; border-right: 0.5px solid var(--rule); }
+  .scale-btn:hover { background: var(--red-pale); color: var(--red); z-index: 1; }
+  .scale-btn.selected {
+    background: var(--red);
+    color: white;
+    border-color: var(--red);
+    z-index: 2;
+  }
+  .scale-btn.selected + .scale-btn { border-left-color: var(--red); }
+
+  /* Multi-select */
+  .multi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .multi-btn {
+    padding: 10px 14px;
+    border: 0.5px solid var(--rule);
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--grey);
+    text-align: left;
+    transition: all 0.15s;
+    line-height: 1.4;
+  }
+  .multi-btn:hover { border-color: var(--red-light); color: var(--ink); }
+  .multi-btn.selected {
+    background: var(--red-pale);
+    border-color: var(--red);
+    color: var(--red);
+    font-weight: 500;
+  }
+
+  /* Text area */
+  .q-textarea {
+    width: 100%;
+    border: 0.5px solid var(--rule);
+    border-radius: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    padding: 12px 14px;
+    color: var(--ink);
+    background: white;
+    resize: vertical;
+    min-height: 80px;
+    outline: none;
+    transition: border-color 0.2s;
+    line-height: 1.6;
+  }
+  .q-textarea:focus { border-color: var(--red); }
+  .q-textarea::placeholder { color: #bbb; }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: white;
+    padding: 10px 56px;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .progress-bar-track {
+    flex: 1;
+    height: 4px;
+    background: var(--grey-light);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--red);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+  .progress-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--grey);
+    white-space: nowrap;
+  }
+
+  /* ── SUBMIT ── */
+  .submit-zone {
+    padding: 40px 56px 56px;
+    background: var(--grey-pale);
+    text-align: center;
+  }
+  .submit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--red);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 16px 36px;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: all 0.2s;
+  }
+  .submit-btn:hover { background: #a01828; transform: translateY(-1px); }
+  .submit-btn:active { transform: translateY(0); }
+  .submit-note {
+    font-size: 12px;
+    color: var(--grey);
+    margin-top: 12px;
+  }
+
+  /* ── RESULTS PANEL ── */
+  #results {
+    display: none;
+    padding: 0 56px 60px;
+    background: var(--grey-pale);
+  }
+
+  .results-header {
+    background: var(--ink);
+    color: white;
+    padding: 36px 40px;
+    border-radius: 6px 6px 0 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .results-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    margin-bottom: 6px;
+  }
+  .results-header p { font-size: 13px; opacity: 0.65; line-height: 1.6; max-width: 480px; }
+
+  .score-ring-wrap {
+    text-align: center;
+    min-width: 120px;
+  }
+  .score-big {
+    font-family: 'DM Serif Display', serif;
+    font-size: 52px;
+    line-height: 1;
+  }
+  .score-label-sm { font-size: 11px; opacity: 0.6; letter-spacing: 0.1em; text-transform: uppercase; }
+  .score-band-label {
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 4px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    display: inline-block;
+  }
+
+  .results-body {
+    background: white;
+    border-radius: 0 0 6px 6px;
+    overflow: hidden;
+  }
+
+  .dimension-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 32px;
+    border-bottom: 1px solid var(--grey-light);
+  }
+  .dimension-row:last-child { border-bottom: none; }
+  .dim-name {
+    font-size: 13px;
+    font-weight: 500;
+    min-width: 200px;
+    color: var(--ink);
+  }
+  .dim-bar-wrap { flex: 1; height: 8px; background: var(--grey-light); border-radius: 4px; overflow: hidden; }
+  .dim-bar-fill { height: 100%; border-radius: 4px; transition: width 0.8s ease; }
+  .dim-score-num { font-size: 13px; font-weight: 600; min-width: 36px; text-align: right; }
+  .dim-flag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-weight: 600;
+    min-width: 64px;
+    text-align: center;
+  }
+  .flag-critical { background: #fdecea; color: var(--red); }
+  .flag-watch    { background: #fff3e0; color: #b06000; }
+  .flag-ok       { background: #e8f5e9; color: #2e7d32; }
+
+  .recs-section {
+    padding: 32px 32px 24px;
+    border-top: 2px solid var(--red-pale);
+    background: var(--grey-pale);
+  }
+  .recs-section h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+  .rec-item {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+  .rec-phase {
+    background: var(--red);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+    margin-top: 1px;
+  }
+  .rec-text { font-size: 13px; line-height: 1.6; color: var(--grey); }
+  .rec-text strong { color: var(--ink); font-weight: 500; }
+
+  .notes-section {
+    padding: 28px 32px;
+    background: white;
+    border-top: 1px solid var(--rule);
+  }
+  .notes-section h3 {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin-bottom: 12px;
+  }
+  .notes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .note-card {
+    border: 0.5px solid var(--rule);
+    border-radius: 4px;
+    padding: 14px 16px;
+  }
+  .note-card label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .note-card p { font-size: 13px; line-height: 1.6; color: var(--grey); font-style: italic; }
+
+  .print-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 24px 32px;
+    background: white;
+    border: 0.5px solid var(--rule);
+    border-radius: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: var(--ink);
+    transition: all 0.15s;
+  }
+  .print-btn:hover { border-color: var(--grey); background: var(--grey-pale); }
+
+  /* ── FOOTER ── */
+  .doc-footer {
+    padding: 20px 56px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+  }
+  .doc-footer .brand { font-family: 'DM Serif Display', serif; font-size: 14px; color: var(--red); }
+  .doc-footer .tagline { font-size: 11px; color: var(--grey); }
+
+  @media print {
+    .progress-bar-wrap, .submit-zone { display: none !important; }
+    .section { break-inside: avoid; }
+    #results { display: block !important; }
+  }
+
+  @media (max-width: 640px) {
+    .cover, .section, .submit-zone, #results, .progress-bar-wrap { padding-left: 20px; padding-right: 20px; }
+    .multi-grid { grid-template-columns: 1fr; }
+    .notes-grid { grid-template-columns: 1fr; }
+    .results-header { flex-direction: column; }
+    .cover-title { font-size: 28px; }
+    .dimension-row { flex-wrap: wrap; }
+    .dim-name { min-width: unset; width: 100%; }
+    .intro-band { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-eyebrow">Plyse Professional Services — Founder Scale System</div>
+  <div class="cover-title">Phase 0<br><em>Founder Diagnostic</em></div>
+  <div class="cover-sub">A structured assessment to map where the founder is holding the business back — and where the highest-leverage interventions lie.</div>
+  <div class="cover-meta">
+    <div class="cover-field">
+      <label>Business name</label>
+      <input type="text" id="bizName" placeholder="e.g. Adeola Ventures Ltd">
+    </div>
+    <div class="cover-field">
+      <label>Founder / respondent</label>
+      <input type="text" id="founderName" placeholder="Full name">
+    </div>
+    <div class="cover-field">
+      <label>Date</label>
+      <input type="text" id="diagDate" placeholder="e.g. April 2026">
+    </div>
+  </div>
+</div>
+
+<!-- INTRO BAND -->
+<div class="intro-band">
+  <p>This diagnostic is confidential and intended for use within your Plyse Professional Services engagement. There are <strong>no right or wrong answers</strong> — respond based on how things <strong>actually are</strong>, not how you wish they were. Honest answers produce the most useful results. The tool will generate a scored profile and a prioritised action map.</p>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-bar-wrap">
+  <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill"></div></div>
+  <div class="progress-label" id="progressLabel">0 of 24 answered</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION A — DECISION LOAD
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">A</div>
+    <div>
+      <div class="section-title">Decision Load</div>
+      <div class="section-desc">How many decisions flow through you — and what kind. This reveals the primary drag on your time and energy.</div>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-label"><span>A1</span> On a typical working day, how many decisions do you make that you feel only you can make?</div>
+    <div class="scale-row">
+      <button class="scale-btn" data-section="A" data-q="A1" data-val="5" onclick="selectScale(this)">1–5</button>
+      <button class="scale-btn" data-section="A" data-q="A1" data-val="3" onclick="selectScale(this)">6–15</button>
+      <button class="scale-btn" data-section="A" data-q="A1" data-val="1" onclick="selectScale(this)">16–30</button>
+      <button class="scale-btn" data-section="A" data-q="A1" data-val="0" onclick="selectScale(this)">30+</button>
+    </div>
+    <div class="scale-labels"><span>Healthy</span><span>Critical</span></div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-label"><span>A2</span> Which types of decisions do you regularly make yourself? (Select all that apply)</div>
+    <div class="multi-grid">
+      <button class="multi-btn" data-q="A2" data-val="a" onclick="toggleMulti(this)">Daily petty cash / minor expenses</button>
+      <button class="multi-btn" data-q="A2" data-val="b" onclick="toggleMulti(this)">Staff scheduling and task assignments</button>
+      <button class="multi-btn" data-q="A2" data-val="c" onclick="toggleMulti(this)">Customer pricing and discounts</button>
+      <button class="multi-btn" data-q="A2" data-val="d" onclick="toggleMulti(this)">Supplier negotiations and purchases</button>
+      <button class="multi-btn" data-q="A2" data-val="e" onclick="toggleMulti(this)">Approving routine invoices</button>
+      <button class="multi-btn" data-q="A2" data-val="f" onclick="toggleMulti(this)">Operational / logistics decisions</button>
+      <button class="multi-btn" data-q="A2" data-val="g" onclick="toggleMulti(this)">Social media and communications</button>
+      <button class="multi-btn" data-q="A2" data-val="h" onclick="toggleMulti(this)">Strategic direction and new initiatives</button>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-label"><span>A3</span> How often do team members interrupt your work to ask for decisions or approvals?</div>
+    <div class="scale-row">
+      <button class="scale-btn" data-section="A" data-q="A3" data-val="5" onclick="selectScale(this)">Rarely</button>
+      <button class="scale-btn" data-section="A" data-q="A3" data-val="3" onclick="selectScale(this)">A few times/week</button>
+      <button class="scale-btn" data-section="A" data-q="A3" data-val="1" onclick="selectScale(this)">Multiple times daily</button>
+      <button class="scale-btn" data-section="A" data-q="A3" data-val="0" onclick="selectScale(this)">Constantly — I'm the default answer</button>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-label"><span>A4</span> Briefly describe the last decision you made that you believe someone else could have — but didn't.</div>
+    <textarea class="q-textarea" data-q="A4" placeholder="What was it? Why did it land on you?" oninput="noteChange(this)"></textarea>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION B — CONTROL AND DELEGATION
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">B</div>
+    <div>
+      <div class="section-title">Control and Delegation</div>
+      <div class="section-desc">Whether real authority has been handed off — or merely the appearance of it.</div>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-label"><span>B1</span> When you assign a task to a team member, how confident are you that it will be completed correctly without your follow-up?</div>
+    <div class="scale-row">
+      <button class="scale-btn" data-section="B" data-q="B1" data-val="5" onclick="selectScale(this)">Very confident</button>
+      <button class="scale-btn" data-section="B" data-q="B1" data-val="3" onclick="selectScale(this)">Somewhat confident</button>
+      <button class="scale-btn" data-section="B" data-q="B1" data-val="1" onclick="selectScale(this)">Usually follow up</button>
+      <button class="scale-btn" data-section="B" data-q="B1" data-val="0" onclick="selectScale(this)">I end up doing it myself</button>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-label"><span>B2</span> Does anyone in your business have the authority to spend money or make a financial commitment without your prior approval?</div>
+    <div class="scale-row">
+      <button class="scale-btn" data-section="B" data-q="B2" data-val="5" onclick="selectScale(this)">Yes, with clear limits</button>
+      <button class="scale-btn" data-section="B" data-q="B2" data-val="2" onclick="selectScale(this)">Sometimes, informally</button>
+      <button class="scale-btn" data-section="B" data-q="B2" data-val="0" onclick="selectScale(this)">No — everything comes to me</button>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-label"><span>B3</span> If you were unavailable for two weeks, how would the business cope?</div>
+    <div class="scale-row">
+      <button class="scale-btn" data-section="B" data-q="B3" data-val="5" onclick="selectScale(this)">Run smoothly</button>
+      <button class="scale-btn" data-section="B" data-q="B3" data-val="3" onclick="selectScale(this)">Slow down but survive</button>
+      <button class="scale-btn" data-section="B" data-q="B3" data-val="1" onclick="selectScale(this)">Significant problems</button>
+      <button class="scale-btn" data-section="B" data-q="B3" data-val="0" onclick="selectScale(this)">It would stop</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION C — SYSTEMS AND PROCESSES
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">C</div>
+    <div>
+      <div class="section-title">Systems and Processes</div>
+      <div class="section-desc">Whether the business runs on documented, repeatable methods — or on the founder's memory and intuition.</div>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-label"><span>C1</span> How much of the way you do things in this business is written down anywhere?</div>
+    <div class="scale-row">
+      <button class="scale-btn" data-section="C" data-q="C1" data-val="5" onclick="selectScale(this)">Most key processes</button>
+      <button class="scale-btn" data-section="C" data-q="C1" data-val="3" onclick="selectScale(this)">Some things</button>
+      <button class="scale-btn" data-section="C" data-q="C1" data-val="1" onclick="selectScale(this)">Very little</button>
+      <button class="scale-btn" data-section="C" data-q="C1" data-val="0" onclick="selectScale(this)">Nothing formal</button>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-label"><span>C2</span> When a new staff member joins, how do they learn what to do?</div>
+    <div class="scale-row">
+      <button class="scale-btn" data-section="C" data-q="C2" data-val="5" onclick="selectScale(this)">A structured induction</button>
+      <button class="scale-btn" data-section="C" data-q="C2" data-val="3" onclick="selectScale(this)">An older staff member shows them</button>
+      <button class="scale-btn" data-section="C" data-q="C2" data-val="1" onclick="selectScale(this)">They figure it out</button>
+      <button class="scale-btn" data-section="C" data-q="C2" data-val="0" onclick="selectScale(this)">I personally train everyone</button>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-label"><span>C3</span> How consistent is the quality of your product or service delivery across different staff or locations?</div>
+    <div class="scale-row">
+      <button class="scale-btn" data-section="C" data-q="C3" data-val="5" onclick="selectScale(this)">Very consistent</button>
+      <button class="scale-btn" data-section="C" data-q="C3" data-val="3" onclick="selectScale(this)">Mostly consistent</button>
+      <button class="scale-btn" data-section="C" data-q="C3" data-val="1" onclick="selectScale(this)">Varies significantly</button>
+      <button class="scale-btn" data-section="C" data-q="C3" data-val="0" onclick="selectScale(this)">Only consistent when I'm involved</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION D — ORGANISATION AND FUNCTIONS
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">D</div>
+    <div>
+      <div class="section-title">Organisation and Functions</div>
+      <div class="section-desc">Whether roles, responsibilities and functional boundaries exist — even informally.</div>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-label"><span>D1</span> Does every person in your business have a clearly defined role with specific responsibilities?</div>
+    <div class="scale-row">
+      <button class="scale-btn" data-section="D" data-q="D1" data-val="5" onclick="selectScale(this)">Yes, formally</button>
+      <button class="scale-btn" data-section="D" data-q="D1" data-val="3" onclick="selectScale(this)">Informally understood</button>
+      <button class="scale-btn" data-section="D" data-q="D1" data-val="1" onclick="selectScale(this)">Vague or overlapping</button>
+      <button class="scale-btn" data-section="D" data-q="D1" data-val="0" onclick="selectScale(this)">Everyone does everything</button>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-label"><span>D2</span> Which of these functions exist in any meaningful form in your business? (Select all that apply)</div>
+    <div class="multi-grid">
+      <button class="multi-btn" data-q="D2" data-val="a" onclick="toggleMulti(this)">Sales / business development</button>
+      <button class="multi-btn" data-q="D2" data-val="b" onclick="toggleMulti(this)">Finance / accounting</button>
+      <button class="multi-btn" data-q="D2" data-val="c" onclick="toggleMulti(this)">Operations / fulfilment</button>
+      <button class="multi-btn" data-q="D2" data-val="d" onclick="toggleMulti(this)">Customer service</button>
+      <button class="multi-btn" data-q="D2" data-val="e" onclick="toggleMulti(this)">HR / people management</button>
+      <button class="multi-btn" data-q="D2" data-val="f" onclick="toggleMulti(this)">Marketing / communications</button>
+      <button class="multi-btn" data-q="D2" data-val="g" onclick="toggleMulti(this)">Procurement / supply chain</button>
+      <button class="multi-btn" data-q="D2" data-val="h" onclick="toggleMulti(this)">IT / technology</button>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-label"><span>D3</span> Does anyone other than you hold a management or supervisory role with real authority over others?</div>
+    <div class="scale-row">
+      <button class="scale-btn" data-section="D" data-q="D3" data-val="5" onclick="selectScale(this)">Yes, multiple managers</button>
+      <button class="scale-btn" data-section="D" data-q="D3" data-val="3" onclick="selectScale(this)">One person, somewhat</button>
+      <button class="scale-btn" data-section="D" data-q="D3" data-val="1" onclick="selectScale(this)">In title only</button>
+      <button class="scale-btn" data-section="D" data-q="D3" data-val="0" onclick="selectScale(this)">No — only me</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION E — PERFORMANCE VISIBILITY
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">E</div>
+    <div>
+      <div class="section-title">Performance Visibility</div>
+      <div class="section-desc">Whether the business has any real-time view of how it is performing — beyond the founder's gut feel.</div>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-label"><span>E1</span> How do you know if your business had a good week?</div>
+    <div class="scale-row">
+      <button class="scale-btn" data-section="E" data-q="E1" data-val="5" onclick="selectScale(this)">Review specific numbers</button>
+      <button class="scale-btn" data-section="E" data-q="E1" data-val="2" onclick="selectScale(this)">Check the bank balance</button>
+      <button class="scale-btn" data-section="E" data-q="E1" data-val="0" onclick="selectScale(this)">I just feel it</button>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-label"><span>E2</span> Which of these performance measures do you track regularly? (Select all that apply)</div>
+    <div class="multi-grid">
+      <button class="multi-btn" data-q="E2" data-val="a" onclick="toggleMulti(this)">Revenue / sales volume</button>
+      <button class="multi-btn" data-q="E2" data-val="b" onclick="toggleMulti(this)">Gross or net margin</button>
+      <button class="multi-btn" data-q="E2" data-val="c" onclick="toggleMulti(this)">Outstanding receivables / debtors</button>
+      <button class="multi-btn" data-q="E2" data-val="d" onclick="toggleMulti(this)">Customer satisfaction or complaints</button>
+      <button class="multi-btn" data-q="E2" data-val="e" onclick="toggleMulti(this)">Staff productivity or output</button>
+      <button class="multi-btn" data-q="E2" data-val="f" onclick="toggleMulti(this)">Inventory levels</button>
+      <button class="multi-btn" data-q="E2" data-val="g" onclick="toggleMulti(this)">Cost vs budget</button>
+      <button class="multi-btn" data-q="E2" data-val="h" onclick="toggleMulti(this)">I don't track any of these formally</button>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-label"><span>E3</span> How often do you produce or review a financial report (profit & loss, cash flow)?</div>
+    <div class="scale-row">
+      <button class="scale-btn" data-section="E" data-q="E3" data-val="5" onclick="selectScale(this)">Monthly or more often</button>
+      <button class="scale-btn" data-section="E" data-q="E3" data-val="3" onclick="selectScale(this)">Quarterly</button>
+      <button class="scale-btn" data-section="E" data-q="E3" data-val="1" onclick="selectScale(this)">Annually (tax time)</button>
+      <button class="scale-btn" data-section="E" data-q="E3" data-val="0" onclick="selectScale(this)">I've never seen a formal report</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION F — FOUNDER READINESS
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">F</div>
+    <div>
+      <div class="section-title">Founder Readiness</div>
+      <div class="section-desc">The honest truth about appetite for change — the most important variable of all.</div>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-label"><span>F1</span> How would you honestly describe your relationship with control in this business?</div>
+    <div class="scale-row">
+      <button class="scale-btn" data-section="F" data-q="F1" data-val="5" onclick="selectScale(this)">Ready to let go</button>
+      <button class="scale-btn" data-section="F" data-q="F1" data-val="3" onclick="selectScale(this)">Willing but anxious</button>
+      <button class="scale-btn" data-section="F" data-q="F1" data-val="1" onclick="selectScale(this)">Letting go is hard</button>
+      <button class="scale-btn" data-section="F" data-q="F1" data-val="0" onclick="selectScale(this)">Control is how I survive</button>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-label"><span>F2</span> What is your primary motivation for seeking support right now?</div>
+    <div class="multi-grid">
+      <button class="multi-btn" data-q="F2" data-val="a" onclick="toggleMulti(this)">I am exhausted and need relief</button>
+      <button class="multi-btn" data-q="F2" data-val="b" onclick="toggleMulti(this)">I want to grow and can't do it alone</button>
+      <button class="multi-btn" data-q="F2" data-val="c" onclick="toggleMulti(this)">I want to prepare for an exit or sale</button>
+      <button class="multi-btn" data-q="F2" data-val="d" onclick="toggleMulti(this)">A specific crisis has forced my hand</button>
+      <button class="multi-btn" data-q="F2" data-val="e" onclick="toggleMulti(this)">I want to spend more time on strategy</button>
+      <button class="multi-btn" data-q="F2" data-val="f" onclick="toggleMulti(this)">Someone else suggested I do this</button>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-label"><span>F3</span> On a scale of 1–5, how ready are you to invest time and energy in restructuring how this business operates over the next 3–6 months?</div>
+    <div class="scale-row">
+      <button class="scale-btn" data-section="F" data-q="F3" data-val="0" onclick="selectScale(this)">1 — Not really</button>
+      <button class="scale-btn" data-section="F" data-q="F3" data-val="1" onclick="selectScale(this)">2</button>
+      <button class="scale-btn" data-section="F" data-q="F3" data-val="2" onclick="selectScale(this)">3</button>
+      <button class="scale-btn" data-section="F" data-q="F3" data-val="4" onclick="selectScale(this)">4</button>
+      <button class="scale-btn" data-section="F" data-q="F3" data-val="5" onclick="selectScale(this)">5 — Fully committed</button>
+    </div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-label"><span>F4</span> What do you most fear about delegating or sharing control?</div>
+    <textarea class="q-textarea" data-q="F4" placeholder="Be honest — this is confidential and important for shaping the right approach." oninput="noteChange(this)"></textarea>
+  </div>
+</div>
+
+<!-- SUBMIT -->
+<div class="submit-zone">
+  <button class="submit-btn" onclick="generateResults()">
+    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 17l6-5-6-5"/></svg>
+    Generate Diagnostic Report
+  </button>
+  <div class="submit-note">Your responses are processed locally. Nothing is sent externally.</div>
+</div>
+
+<!-- RESULTS -->
+<div id="results">
+  <div class="results-header">
+    <div>
+      <h2>Diagnostic Report</h2>
+      <p id="results-intro">Scored profile and recommended interventions based on your responses.</p>
+    </div>
+    <div class="score-ring-wrap">
+      <div class="score-big" id="totalScore">—</div>
+      <div class="score-label-sm">Overall Score</div>
+      <div class="score-band-label" id="scoreBand">—</div>
+    </div>
+  </div>
+
+  <div class="results-body">
+    <div id="dimensionRows"></div>
+
+    <div class="recs-section">
+      <h3>Priority Interventions</h3>
+      <div id="recsList"></div>
+    </div>
+
+    <div class="notes-section">
+      <h3>Founder's Own Words</h3>
+      <div class="notes-grid" id="notesGrid"></div>
+    </div>
+
+    <button class="print-btn" onclick="window.print()">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Print / Save as PDF
+    </button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <div>
+    <div class="brand">Plyse Professional Services</div>
+    <div class="tagline">Performance consulting since 2007 · plyseprofessional.com</div>
+  </div>
+  <div class="tagline">Founder Scale System — Phase 0 Diagnostic · Confidential</div>
+</div>
+
+<script>
+const answers = {};
+const notes = {};
+let answeredCount = 0;
+const TOTAL_SCORED = 18; // scale questions only
+
+function selectScale(btn) {
+  const q = btn.dataset.q;
+  const val = parseInt(btn.dataset.val);
+  const row = btn.parentElement;
+  const wasAnswered = answers[q] !== undefined;
+  row.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  if (!wasAnswered) answeredCount++;
+  answers[q] = val;
+  updateProgress();
+}
+
+function toggleMulti(btn) {
+  const q = btn.dataset.q;
+  const val = btn.dataset.val;
+  btn.classList.toggle('selected');
+  if (!answers[q]) answers[q] = new Set();
+  if (btn.classList.contains('selected')) answers[q].add(val);
+  else answers[q].delete(val);
+}
+
+function noteChange(el) {
+  notes[el.dataset.q] = el.value;
+}
+
+function updateProgress() {
+  const pct = Math.round((answeredCount / TOTAL_SCORED) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = answeredCount + ' of ' + TOTAL_SCORED + ' answered';
+}
+
+const DIMS = [
+  { key: 'A', name: 'Decision Load', qs: ['A1','A3'], maxPer: 5, weight: 1.3 },
+  { key: 'B', name: 'Control & Delegation', qs: ['B1','B2','B3'], maxPer: 5, weight: 1.2 },
+  { key: 'C', name: 'Systems & Processes', qs: ['C1','C2','C3'], maxPer: 5, weight: 1.1 },
+  { key: 'D', name: 'Organisation Design', qs: ['D1','D3'], maxPer: 5, weight: 1.0 },
+  { key: 'E', name: 'Performance Visibility', qs: ['E1','E3'], maxPer: 5, weight: 1.0 },
+  { key: 'F', name: 'Founder Readiness', qs: ['F1','F3'], maxPer: 5, weight: 1.4 },
+];
+
+const RECS = [
+  { dim: 'A', threshold: 40, phase: 'PHASE 1', text: '<strong>Decision Architecture:</strong> Build a Decision Rights Matrix immediately — categorise every recurring decision as Founder-only, Delegated, or Team. This alone recovers 2–3 hours per day.' },
+  { dim: 'B', threshold: 40, phase: 'PHASE 1', text: '<strong>Financial Authority Levels:</strong> Establish formal spending authority tiers so that routine financial decisions do not require the founder at all.' },
+  { dim: 'C', threshold: 40, phase: 'PHASE 3', text: '<strong>Process Documentation Sprint:</strong> Map and document the 5–8 highest-frequency operations. Use a simple SOP template. Start with the ones that fail most often when you\'re absent.' },
+  { dim: 'D', threshold: 50, phase: 'PHASE 2', text: '<strong>Function Design:</strong> Define at minimum 3–4 functional areas (Operations, Finance, Sales, People) even if one person holds multiple hats. Assign clear accountability per function.' },
+  { dim: 'E', threshold: 40, phase: 'PHASE 4', text: '<strong>Performance Dashboard:</strong> Introduce 5–7 Key Performance Indicators across functions — simple, visible weekly numbers that allow the founder to oversee without interfering.' },
+  { dim: 'F', threshold: 50, phase: 'PHASE 5', text: '<strong>Founder Transition Coaching:</strong> Readiness for change is the pivotal variable. This engagement should include structured coaching sessions on identity, control, and trust — not just systems.' },
+];
+
+function scoreDim(dim) {
+  let raw = 0, max = 0;
+  dim.qs.forEach(q => {
+    if (answers[q] !== undefined) { raw += answers[q]; max += dim.maxPer; }
+  });
+  if (max === 0) return null;
+  return Math.round((raw / max) * 100);
+}
+
+function generateResults() {
+  let totalRaw = 0, totalMax = 0, dimData = [];
+  DIMS.forEach(d => {
+    let raw = 0, max = 0;
+    d.qs.forEach(q => {
+      if (answers[q] !== undefined) {
+        raw += answers[q] * d.weight;
+        max += d.maxPer * d.weight;
+      }
+    });
+    const pct = max > 0 ? Math.round((raw / max) * 100) : 50;
+    totalRaw += raw; totalMax += max;
+    dimData.push({ ...d, pct });
+  });
+
+  const overall = totalMax > 0 ? Math.round((totalRaw / totalMax) * 100) : 0;
+
+  // Score display
+  document.getElementById('totalScore').textContent = overall + '%';
+  let band, bandColor;
+  if (overall >= 70) { band = 'Good foundation'; bandColor = '#2e7d4f'; }
+  else if (overall >= 45) { band = 'Needs structure'; bandColor = '#b06000'; }
+  else { band = 'Critical intervention'; bandColor = '#BF202F'; }
+  const sb = document.getElementById('scoreBand');
+  sb.textContent = band;
+  sb.style.background = bandColor + '22';
+  sb.style.color = bandColor;
+
+  const biz = document.getElementById('bizName').value || 'this business';
+  const founder = document.getElementById('founderName').value || 'the founder';
+  document.getElementById('results-intro').textContent =
+    `Scored profile for ${founder} at ${biz}. Review each dimension and the priority interventions below.`;
+
+  // Dimension rows
+  const dimContainer = document.getElementById('dimensionRows');
+  dimContainer.innerHTML = '';
+  dimData.forEach(d => {
+    let flag, flagClass, barColor;
+    if (d.pct >= 65) { flag = 'Healthy'; flagClass = 'flag-ok'; barColor = '#2e7d4f'; }
+    else if (d.pct >= 38) { flag = 'Watch'; flagClass = 'flag-watch'; barColor = '#d4780a'; }
+    else { flag = 'Critical'; flagClass = 'flag-critical'; barColor = '#BF202F'; }
+
+    dimContainer.innerHTML += `
+      <div class="dimension-row">
+        <div class="dim-name">${d.name}</div>
+        <div class="dim-bar-wrap"><div class="dim-bar-fill" style="background:${barColor};width:0%" data-target="${d.pct}"></div></div>
+        <div class="dim-score-num" style="color:${barColor}">${d.pct}%</div>
+        <div class="dim-flag ${flagClass}">${flag}</div>
+      </div>`;
+  });
+  setTimeout(() => {
+    document.querySelectorAll('.dim-bar-fill').forEach(b => {
+      b.style.width = b.dataset.target + '%';
+    });
+  }, 100);
+
+  // Recommendations
+  const recsList = document.getElementById('recsList');
+  recsList.innerHTML = '';
+  let hasRec = false;
+  RECS.forEach(r => {
+    const dim = dimData.find(d => d.key === r.dim);
+    if (dim && dim.pct < r.threshold) {
+      hasRec = true;
+      recsList.innerHTML += `<div class="rec-item"><div class="rec-phase">${r.phase}</div><div class="rec-text">${r.text}</div></div>`;
+    }
+  });
+  if (!hasRec) recsList.innerHTML = '<div class="rec-text">Strong across all dimensions. Focus on deepening systems and preparing for scale.</div>';
+
+  // Notes
+  const notesGrid = document.getElementById('notesGrid');
+  notesGrid.innerHTML = '';
+  const noteLabels = { A4: 'Last unnecessary decision', F4: 'Fears about letting go' };
+  Object.entries(noteLabels).forEach(([q, label]) => {
+    if (notes[q] && notes[q].trim()) {
+      notesGrid.innerHTML += `<div class="note-card"><label>${label}</label><p>${notes[q]}</p></div>`;
+    }
+  });
+  if (!notesGrid.innerHTML) notesGrid.innerHTML = '<div class="note-card" style="grid-column:1/-1"><label>No notes captured</label><p>No open-ended responses were recorded in this session.</p></div>';
+
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
